@@ -80,7 +80,7 @@ class SearchController extends Controller
         */ 
         $peticion = $keyword;    
         $peticion= str_replace(' ','+',$peticion);
-        $api_key = 'aAIzaSyDZn78cA3T_gf10-HfixEuo87lJ7tgeguc';  //API KEY, Reemplazar por api key de youtube data API v3
+        $api_key = 'AIzaSyDZn78cA3T_gf10-HfixEuo87lJ7tgeguc';  //API KEY, Reemplazar por api key de youtube data API v3
         $url_youtube = 'https://www.googleapis.com/youtube/v3/search';
         $busqueda = $peticion;
         $region = 'AR';
