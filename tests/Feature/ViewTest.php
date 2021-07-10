@@ -23,5 +23,5 @@ class ViewTest extends TestCase
       $this->get(route('jsonSearch'))
               ->assertStatus(200);
      }
-     
+  
 }

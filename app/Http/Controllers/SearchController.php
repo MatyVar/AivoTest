@@ -8,7 +8,10 @@ class SearchController extends Controller
 {
 
     public function videos(Request $request){
-
+        
+        $request->validate([
+            'search'=>'required',
+        ]);
         $response =  $this->getVideos($request);
         if(gettype($response)!='int'){
             $response = json_decode($response,true);
@@ -18,7 +21,9 @@ class SearchController extends Controller
     }
 
     public function getVideosApi(Request $request){
-
+        $request->validate([
+            'search'=> 'required',
+        ]);
         $response =  $this->getVideos($request);
         if(gettype($response)!='integer'){
             $response = json_decode($response,true);
@@ -80,7 +85,7 @@ class SearchController extends Controller
         */ 
         $peticion = $keyword;    
         $peticion= str_replace(' ','+',$peticion);
-        $api_key = 'AIzaSyDZn78cA3T_gf10-HfixEuo87lJ7tgeguc';  //API KEY, Reemplazar por api key de youtube data API v3
+        $api_key = 'AIzaSyDGnK7iORNfhajzokBPYnim6MUGG4UGyMw';  //API KEY, Reemplazar por api key de youtube data API v3
         $url_youtube = 'https://www.googleapis.com/youtube/v3/search';
         $busqueda = $peticion;
         $region = 'AR';

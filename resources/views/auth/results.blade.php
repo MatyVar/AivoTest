@@ -2,7 +2,7 @@
 
 
 @section('content')
-    @if (gettype($resultsYoutube)!='integer')
+    @if (gettype($resultsYoutube) != 'integer')
 
         <div class="container ">
             <div class="row">
@@ -27,36 +27,42 @@
                     </div>
                 @endfor
             </div>
+            <div>
+                <a id="btnSubmit" type="submit" style="background-color: #832CFA" class="btn text-white"
+                    href="{{ route('home') }}">Back!</a>
+                </div>
         </div>
     @else
 
-    <div class="container">
-        <div>
-        <!--Si el array $resultsYoutube no tiene contenido, significa que la consulta a la api no trajo videos, si el status fue satisfactorio, se recomienda probar con otra palabra clave.-->
-        @if ($resultsYoutube >= 200 && $resultsYoutube < 300)
-            <h3>mmm... nothing here, video not found. Please retry with another keyword ;)</h3>
-            <img style="opacity: 0.2"
-                src="{{ asset('/img/1456208769_258_Geniuses-we-love-Vic-Bell-Illustrator-and-icon-designer.png') }}"
-                alt="">
-            <!-- Si el array no contiene videos, y el estado http es en este rango, se muestra un mensaje de error-->
-        @elseif($resultsYoutube >= 400 && $resultsYoutube< 500) <div class="alert alert-danger">
-                <h3>Error code {{ $resultsYoutube }}, YouTube Data API quota exceeded or forbidden
-                    request..</h3>
-    </div>
-    <img style="opacity: 0.2"
-        src="{{ asset('/img/1456208769_258_Geniuses-we-love-Vic-Bell-Illustrator-and-icon-designer.png') }}" alt="">
-@else
-    <div class="alert alert-danger">
-        <h3>Can't connect with youtube services, please check your connection.</h3>
-    </div>
-    <img style="opacity: 0.2"
-        src="{{ asset('/img/1456208769_258_Geniuses-we-love-Vic-Bell-Illustrator-and-icon-designer.png') }}" alt="">
-    @endif
-    </div>
+   <div class="container">
+           
+                <!--Si el array $resultsYoutube no tiene contenido, significa que la consulta a la api no trajo videos, si el status fue satisfactorio, se recomienda probar con otra palabra clave.-->
+                @if ($resultsYoutube >= 200 && $resultsYoutube < 300)
+                    <h3>mmm... nothing here, video not found. Please retry with another keyword ;)</h3>
+                    <img style="opacity: 0.2" src="{{ asset('/img/1456208769_258_Geniuses-we-love-Vic-Bell-Illustrator-and-icon-designer.png') }}" alt="">
+                    <!-- Si el array no contiene videos, y el estado http es en este rango, se muestra un mensaje de error-->
+                @elseif($resultsYoutube >= 400 && $resultsYoutube< 500) 
+                       <div class="alert alert-danger">
+                        <h3>Error code {{ $resultsYoutube }}, YouTube Data API quota exceeded or forbidden request..</h3>
+                       </div>
+                          <img style="opacity: 0.2"
+                          src="{{ asset('/img/1456208769_258_Geniuses-we-love-Vic-Bell-Illustrator-and-icon-designer.png') }}"
+                                 alt="">
+                  @else
+                             <div class="alert alert-danger">
+                              <h3>Can't connect with youtube services, please check your connection.</h3>
+                              </div>
+                              <img style="opacity: 0.2"
+                              src="{{ asset('/img/1456208769_258_Geniuses-we-love-Vic-Bell-Illustrator-and-icon-designer.png') }}"
+                              alt="">
+                  @endif
+   
+                  <div>
+                    <a id="btnSubmit" type="submit" style="background-color: #832CFA" class="btn text-white"
+                        href="{{ route('home') }}">Back!</a>
+                    </div>
+                </div>
 
-    @endif
-    
-    <a id="btnSubmit" type="submit" style="background-color: #832CFA" class="btn text-white"
-    href="{{ route('home') }}">Back!</a>
-</div>
+                     @endif
+  
 @endsection

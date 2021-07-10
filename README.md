@@ -1,62 +1,72 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+## AivoTube -App Test técnico para Aivo.
+- Aplicación que toma una palabra clave ingresada por el usuario, y tiene la posibilidad de desplegar hasta 10 resultados de videos de youtube basado en el parametro de búsqueda   ingresado por el mismo. La app, tambien tiene la posibilidad de mostrar una salida en formato JSON, demostrando la respuesta de la API de YouTube para esa keyword.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+### Comenzando 🚀
+- Estas instrucciones le permitirán obtener una copia del proyecto en funcionamiento en su máquina local.
 
-## About Laravel
+### Pre-requisitos 📋
+- La aplicación corre sobre Laravel Framework 8.49.2, implementa PHP en su versión 7.4, y como sistema de gestión de paquetes utiliza Composer version 2.0.12. Una ves que la aplicación cuente con las dependencias necesarias, se podrá correr el servicio web mediante Artisan, Cli de laravel.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Ejemplo de inicio de servidor web:
+````
+php artisan serve
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Ejemplo de respuesta de terminal:
+[Fri Jul  9 14:12:59 2021] PHP 7.4.12 Development Server (http://127.0.0.1:8000) started
+````
+- para visualizar el index, ingresar esta url en el navegador:
+````
+http://127.0.0.1:8000
+````
+### Instalación 🔧
+- Instalacion vía Git:
+````
+-Clonar el repositorio https://github.com/MatyVar/AivoTest.git
+-abrir la carpeta AivoTest con su editor de codigo, como recomendación utilizar Visual Studio Code.
+-Abrir un terminal y ejecutar dentro de dicha carpeta el comando: 
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+composer install
 
-## Learning Laravel
+-luego ejecutar 
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+php artisan key:generate
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+-correr el servidor local con:
 
-## Laravel Sponsors
+php artisan serve
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+-acceder a localhost:8000
+````
+### Ejecutando algunas pruebas ⚙️
+- El proyecto cuenta con un pequeño Unit Testing (2 test básicos, que requerí, para validar el acceso a las rutas y los metodos Get cuando se instala el proyecto) Ejecutar:
+````
+vendor/bin/phpunit
+````
+La respuesta de la terminal deberia ser:
+````
+OK (2 tests, 2 assertions)
+````
+- Consideraciones importantes:
+- La aplicación se conecta a la api de YouTube, por lo cual se requiere una Api Key. En este caso, he dejado configurada mi Api Key personal, pero estas Keys tienen una Quota diaria de consumo limitada. En el caso de que se haya terminado la Quota, se debe reemplazar la api Key en la aplicacion, por una api Key válida. El sistema igualmente, dará aviso de este error mediante un Alert en la pagina de resultados de la búsqueda.
 
-### Premium Partners
+- Para reemplazar la api key:
+````
+en el archivo /app/Http/Controllers/SearchController.php 
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
+Dentro de la función urlGen(), cambiar el valor de la variable $api_key por la api key nueva.
+````
+### Aspectos importantes del proyecto:
+- El proyecto posee validacion de campo, manejo de respuestas de codigo de error distintos a status 200,
+  y se puede testear ingresando como keyword:
+````
+'muse' : como ejemplo de palabra clave correcta para busqueda.
+'asd as fasf sfas  asdas sada as xzcxc zxc zxc xc zxcz xcxzczxczxczxc   zxczx cxzc zx ' :como para validar video inexistente-
 
-## Contributing
+'campo vacio' : como para validar form
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+se puede cambiar algun parametro de la api key y se vera el mensaje de error correspondiente.
+````
+  
+Listo para utilizar! ⚙️
+Autor ✒️
+Matias David Gasañol - (https://github.com/MatyVar)

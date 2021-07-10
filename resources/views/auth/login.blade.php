@@ -9,7 +9,7 @@
                 <input type="text" name="search" class="form-control" id="inputKeyword" aria-describedby="emailHelp"
                     placeholder="Search on YouTube...">
                 <small id="emailHelp" class="form-text text-muted">* The application will connect with YouTube Services.</small>
-                @error('keyword')
+                @error('search')
                     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-3 mb-6 alert alert-danger"
                         role="alert">
                         <strong class="r">Error!</strong>
