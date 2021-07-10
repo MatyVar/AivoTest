@@ -5,13 +5,13 @@
     <div class="container">
         <div class="row">
 
-            @if ($httpStatuscode >= 200 && $httpStatuscode < 300)
+            @if ($httpCode >= 200 && $httpCode < 300)
                 <h3>No results...Please try with another KeyWord</h3>
                 <img style="opacity: 0.2"
                     src="{{ asset('/img/1456208769_258_Geniuses-we-love-Vic-Bell-Illustrator-and-icon-designer.png') }}"
                     alt="">
-            @elseif($httpStatuscode>=400 && $httpStatuscode < 500) <div class="alert alert-danger">
-                    <h3>Error code {{ $httpStatuscode }}, YouTube Data API quota exceeded or forbidden request..</h3>
+            @elseif($httpCode>=400 && $httpCode < 500) <div class="alert alert-danger">
+                    <h3>Error code {{ $httpCode }}, YouTube Data API quota exceeded or bad request..</h3>
         </div>
         <img style="opacity: 0.2"
             src="{{ asset('/img/1456208769_258_Geniuses-we-love-Vic-Bell-Illustrator-and-icon-designer.png') }}" alt="">

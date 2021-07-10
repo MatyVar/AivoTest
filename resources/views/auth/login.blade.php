@@ -3,11 +3,10 @@
 @section('content')
     <div class="container">
 
-        <form method="POST" action="{{ route('search') }}">
-            @csrf
-            <div class="form-group">
+        <form method="GET" action="{{ route('vervideos') }}">
+                        <div class="form-group">
                 <label for="exampleInputEmail1">Enter a keyword to start searching for videos !</label>
-                <input type="text" name="keyword" class="form-control" id="inputKeyword" aria-describedby="emailHelp"
+                <input type="text" name="search" class="form-control" id="inputKeyword" aria-describedby="emailHelp"
                     placeholder="Search on YouTube...">
                 <small id="emailHelp" class="form-text text-muted">* The application will connect with YouTube Services.</small>
                 @error('keyword')
@@ -18,6 +17,7 @@
                     </div>
                 @enderror
             </div>
+            <!--
             <div class="form-group">
                 <label for="results">Number of results:</label>
                 <select name="results" id="results" class="form-control">
@@ -34,7 +34,7 @@
                     <option value="10">10</option>
                 </select>
             </div>
-
+        -->
             <button id="btnSubmit" type="submit" style="background-color: #832CFA" class="btn  text-white">Normal
                 Search!</button>
 
