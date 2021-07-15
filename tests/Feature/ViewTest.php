@@ -19,7 +19,7 @@ class ViewTest extends TestCase
     }
  
      public function test_videos(){
-      //testing index page
+      //testing index page of json search
       $this->get(route('jsonSearch'))
               ->assertStatus(200);
      }

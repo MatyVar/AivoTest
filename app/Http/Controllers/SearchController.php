@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
+use App\Custom\Youtube;
+
+
 
 class SearchController extends Controller
 {
@@ -13,7 +17,7 @@ class SearchController extends Controller
             'search'=>'required',
         ]);
         $response =  $this->getVideos($request);
-        if(gettype($response)!='int'){
+        if(gettype($response)!='integer'){
             $response = json_decode($response,true);
         }      
      return  view('auth.results')->with('resultsYoutube',$response);
@@ -24,7 +28,7 @@ class SearchController extends Controller
         $request->validate([
             'search'=> 'required',
         ]);
-        $response =  $this->getVideos($request);
+        $response = $this->getVideos($request);
         if(gettype($response)!='integer'){
             $response = json_decode($response,true);
             return $response;
@@ -32,76 +36,19 @@ class SearchController extends Controller
         return view('auth.jsonException')->with('httpCode',$response);
     
     }
-   
+
     public function getVideos(Request $request){
-        
+
+        //captura la keyword y la envia a la funcion que retorna resultados junto a la cantidad de resultados esperados.
+        $youtubeRequest = new Youtube();
         $keyword=$_GET['search'];
-        $connectApi=$this->urlGen($keyword,10);
-        $array = array();
-        //se prepara el GET a la api de youtube mediante curl.
-        $ch=curl_init();
-        curl_setopt($ch,CURLOPT_URL,$connectApi);
-        curl_setopt($ch,CURLOPT_HEADER,false);
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-        //se ejecuta el GET a la api de youtube.
-        $result = curl_exec($ch);
-        
+        $cantresult = 10;
+        $response = $youtubeRequest->getVideos($keyword,$cantresult);
 
-        //Guardo estado http de la response, tras consulta a la api de youtube.
-        $httpStatuscode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        //si la respuesta es satisfactoria, procedemos a decodificar el JSON y recorrerlo para extraer los valores requeridos. 
-        if($httpStatuscode ==200){
-            $phpObj = json_decode($result,true);
-            
-            foreach($phpObj['items'] as $key =>$value ){
-                $prueba = array(
-              
-                'published_at'=>$value['snippet']['publishedAt'],
-                'id'=>$value['id']['videoId'],
-                'title'=>$value['snippet']['title'],
-                'description'=>$value['snippet']['description'],
-                'thumbnail'=>$value['snippet']['thumbnails']['default']['url'],         
-                'extra'=>array(
-                'channelTitle'=>$value['snippet']['channelTitle'],
-                'liveBroadcastContent' => $value['snippet']['liveBroadcastContent'],
-             ),
-          
-           );
-            //agrego array en cada iteracion.
-          array_push($array,$prueba);
-        }
-        }
-        if(!empty($array)){
-            return json_encode($array);
-        }else{
-            return $httpStatuscode;
-        }
+        return $response;
         }
 
-    public function urlGen($keyword,$cantresult){
-        /*
-        generación de url, esta funcion concatena parametros para retornar 
-        la url con la cual se realizará el GET a la API de youtube.
-        */ 
-        $peticion = $keyword;    
-        $peticion= str_replace(' ','+',$peticion);
-        $api_key = 'AIzaSyDGnK7iORNfhajzokBPYnim6MUGG4UGyMw';  //API KEY, Reemplazar por api key de youtube data API v3
-        $url_youtube = 'https://www.googleapis.com/youtube/v3/search';
-        $busqueda = $peticion;
-        $region = 'AR';
-        $type = 'video';
-        $part = 'snippet';
-        $results = $cantresult;
-        $url = $url_youtube;
-        $url .='?key='.$api_key;
-        $url.= '&part'.$part;
-        $url.='&part='.$part;
-        $url.='&maxResults='.$results;
-        $url.='&order=relevance';
-        $url.='&q='.$busqueda;
-        $url.='&type='.$type;
-        return $url;
- }
+
  public function jsonSearch(){
     return view('auth.jsonSearch');
 }
